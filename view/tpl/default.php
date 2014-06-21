@@ -5,12 +5,14 @@
   <body>      
       <h1>Dati richiesti</h1>
       <dl>
-        <dt>Autore</dt>
-        <dl><?php echo $data['author']; ?></dl>
-        <dt>Titolo</dt>
-        <dl><?php echo $data['title']; ?></dl>
-        <dt>Anno</dt>
-        <dl><?php echo $data['year']; ?></dl>
+        <?php foreach($data as $book): ?>
+          <dt>Autore</dt>
+          <dd><?php echo $book['author']; ?></dd>
+          <dt>Titolo</dt>
+          <dd><?php echo $book['title']; ?></dd>
+          <dt>Anno</dt>
+          <dd><?php echo $book['year']; ?></dd>
+        <?php endforeach ?>
       </dl>
   </body>
 </html>

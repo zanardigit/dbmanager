@@ -13,15 +13,18 @@ class BookModel
     /**
      * Returns a single item
      * 
-     * @return void
+     * @return array
      */
-    public function getItem()
+    public function getList()
     {
-        return array(
-          'author' => 'Francesco Abeni',
-          'title' => 'Joomla dev best practices',
-          'year' => '2013'
-        );
+        include 'classes/database.php';
+        $database = new Database();
+        if ( ! $database->connection)
+        {
+            return array();
+        }
+   
+        return $database->getRows('book');
     }
     
     /**

@@ -36,7 +36,12 @@ class BookView
     public function displayFile($data)
     {
         $file = $_SERVER['DOCUMENT_ROOT'] . 'data.txt';
-        file_put_contents($file,print_r($data,true));
+        foreach($data as $book_fields)
+        {
+          $content .= implode(",",$book_fields) . "\n";
+        }
+
+        file_put_contents($file, $content);
         include 'tpl/file.php';
     }
   

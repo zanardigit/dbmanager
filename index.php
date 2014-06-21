@@ -10,7 +10,7 @@ if ( ! $bookmodel->setPurchased(true))
 }
 
 // Recupero i dati
-$data = $bookmodel->getItem();
+$data = $bookmodel->getList();
 $format = empty($_GET['format']) ? '' : $_GET['format'];
 
 $bookview = new BookView();
