@@ -1,0 +1,6 @@
+Array
+(
+    [author] => Francesco Abeni
+    [title] => Joomla dev best practices
+    [year] => 2013
+)
