@@ -1,17 +1,21 @@
 <?php
 
-include "model/bookmodel.php";
-include "view/bookview.php";
-
-$bookmodel = new BookModel();
-if ( ! $bookmodel->setPurchased(true))
+$key = empty($_GET['key']) ? '' : $_GET['key'];
+if ($key != 'miaPasswordSegretaAAAbbbCCC')
 {
-  exit("Unable to set status");
+    //exit("Not authorized");
 }
 
-// Recupero i dati
-$data = $bookmodel->getList();
-$format = empty($_GET['format']) ? '' : $_GET['format'];
+$valid_resources = array('book','author');
+$resource = empty($_GET['resource']) ? '' : $_GET['resource'];
+if ( ! in_array($resource, $valid_resources))
+{
+    exit("Invalid resource requested");
+}
 
-$bookview = new BookView();
-$bookview->display($format, $data);
+$action = empty($_GET['action']) ? '' : $_GET['action'];
+
+require_once "controller/".strtolower($resource)."controller.php";
+$controller_class = ucfirst($resource)."Controller";
+$controller = new $controller_class();
+$controller->$action();

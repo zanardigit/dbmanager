@@ -9,7 +9,7 @@ class Database
     public $database_user = 'dbmanager';
     public $database_pass = 'dbmanager';
     public $connection = null;
-    
+
     public function __construct()
     {
         $this->connection = mysqli_connect('localhost', $this->database_user, $this->database_pass, $this->database_name);
@@ -18,7 +18,7 @@ class Database
             return null;
         }
     }
-    
+
     public function getRows($table)
     {
         $result = mysqli_query($this->connection, "SELECT * FROM $table");
@@ -29,5 +29,18 @@ class Database
         }
 
         return $list;
+    }
+
+    public function insertRow($table, $data)
+    {
+        $query = "INSERT INTO $table SET ";
+        $inserts = array();
+        foreach ($data as $key => $value)
+        {
+            $inserts [] = "$key = '$value'";
+        }
+        $query .= implode(",", $inserts);
+
+        return mysqli_query($this->connection, $query);
     }
 }
