@@ -15,7 +15,7 @@ class BookModel
      *
      * @return array
      */
-    public function getList()
+    public function getList($id=0)
     {
         include 'classes/database.php';
         $database = new Database();
@@ -24,7 +24,7 @@ class BookModel
             return array();
         }
 
-        return $database->getRows('book');
+        return $database->getRows('book',$id);
     }
 
     /**
@@ -62,7 +62,15 @@ class BookModel
             return array();
         }
 
-        return $database->insertRow('book', $data);
+        if ($data["id"])
+        {
+       
+            return $database->updateRow('book', $data);
+        }
+        else
+        {
+            return $database->insertRow('book', $data);
+        }
     }
 
 }

@@ -19,9 +19,14 @@ class Database
         }
     }
 
-    public function getRows($table)
+    public function getRows($table,$id=0)
     {
-        $result = mysqli_query($this->connection, "SELECT * FROM $table");
+        $query="select * from $table";
+        if ($id) {
+            $query .= " where id=$id";
+        }
+        $result = mysqli_query($this->connection, $query);
+
         $list = array();
         while ($row = mysqli_fetch_assoc($result))
         {
@@ -40,6 +45,25 @@ class Database
             $inserts [] = "$key = '$value'";
         }
         $query .= implode(",", $inserts);
+
+        return mysqli_query($this->connection, $query);
+    }
+
+     public function updateRow($table, $data)
+    {
+        $query = "update $table SET ";
+        $inserts = array();
+        foreach ($data as $key => $value)
+        {
+            if($key=="id")
+            {
+                continue;
+            }
+            $inserts [] = "$key = '$value'";
+        }
+        $query .= implode(",", $inserts);
+        $query.= " where id={$data["id"]}";
+
 
         return mysqli_query($this->connection, $query);
     }

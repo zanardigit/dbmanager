@@ -17,7 +17,8 @@ class BookController
         }
 
         // Recupero i dati
-        $data = $bookmodel->getList();
+        $id= empty($_GET['id']) ? 0 : $_GET['id'];
+        $data = $bookmodel->getList($id);
         $format = empty($_GET['format']) ? '' : $_GET['format'];
 
         $bookview = new BookView();
@@ -27,6 +28,7 @@ class BookController
     public function post()
     {
         $data = array();
+        $data['id']= $_GET['id'];
         $data['title'] = $_GET['title'];
         $data['author'] = $_GET['author'];
         $data['year'] = $_GET['year'];
@@ -34,11 +36,11 @@ class BookController
         $model = new BookModel();
         if ($model->save($data))
         {
-            echo "Saved";
+            header('Location: /frontend/books.php?result=success');
         }
         else
         {
-            echo "Error";
+            header('Location: /frontend/books.php?result=error');
         }
     }
 }
