@@ -1,31 +1,22 @@
 <?php
 
+require_once "basemodel.php";
+
 /**
  * @class BookModel
  */
-class BookModel
+class BookModel extends BaseModel
 {
+    /**
+     *
+     * @var string $resource
+     */
+    private $resource = 'book';
+
     /**
      * @var bool $purchased the purchase state of the book (true if it's been purchased already)
      */
     private $purchased = false;
-
-    /**
-     * Returns a single item
-     *
-     * @return array
-     */
-    public function getList($id=0)
-    {
-        include 'classes/database.php';
-        $database = new Database();
-        if ( ! $database->connection)
-        {
-            return array();
-        }
-
-        return $database->getRows('book',$id);
-    }
 
     /**
      * @return bool the purchase status
@@ -46,31 +37,4 @@ class BookModel
         $this->purchased = (bool)$value;
         return true;
     }
-
-    /**
-     * Save a new book
-     *
-     * @param array $data
-     * @return bool true if the operation went fine
-     */
-    public function save($data)
-    {
-        include 'classes/database.php';
-        $database = new Database();
-        if ( ! $database->connection)
-        {
-            return array();
-        }
-
-        if ($data["id"])
-        {
-       
-            return $database->updateRow('book', $data);
-        }
-        else
-        {
-            return $database->insertRow('book', $data);
-        }
-    }
-
 }

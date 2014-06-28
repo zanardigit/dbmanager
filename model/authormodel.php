@@ -1,46 +1,15 @@
 <?php
 
+require_once "basemodel.php";
+
 /**
  * @class AuthorModel
  */
-class AuthorModel
+class AuthorModel extends BaseModel
 {
-
-
     /**
-     * Returns a single item
      *
-     * @return array
+     * @var string $resource
      */
-    public function getList()
-    {
-        include 'classes/database.php';
-        $database = new Database();
-        if ( ! $database->connection)
-        {
-            return array();
-        }
-
-        return $database->getRows('author');
-    }
-
-
-    /**
-     * Save a new author
-     *
-     * @param array $data
-     * @return bool true if the operation went fine
-     */
-    public function save($data)
-    {
-        include 'classes/database.php';
-        $database = new Database();
-        if ( ! $database->connection)
-        {
-            return array();
-        }
-
-        return $database->insertRow('author', $data);
-    }
-
+    private $resource = 'author';
 }
